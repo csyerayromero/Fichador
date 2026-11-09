@@ -60,8 +60,34 @@ fn load_inside() -> io::Result<HashSet<String>> {
   return Ok(inside);
 }
 
+fn register(scan: &mut String, state: &HashSet<String>) -> bool {
+    if state.contains(scan) {
+        println!("Contains scan");
+        return true;
+    }else {
+        println!("Does not contain scan");
+        return false;
+    }
+
+}
+
 fn main() {
-    return;
+    let mut inside = load_inside(); 
+    let stdin = io::stdin();
+    let mut barcode = String::new();
+    loop {
+        inside = load_inside();
+        match stdin.lock().read_line(&mut barcode) {
+            Ok(0) => break,
+            Ok(_) => {
+                let barcode = barcode.trim();
+                let mut scan = String::from(barcode);
+                register(&mut scan, &inside.unwrap());
+                println!("Scanned: {}", barcode);
+            },
+            Err(e) => eprintln!("Input error: {}", e),
+        }
+    }
 }
 
 
