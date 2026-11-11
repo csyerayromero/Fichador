@@ -1,7 +1,0 @@
-hash|E|2026-11-11, 08h:39m43s|Yeray Romero
-hash2|E|2026-11-11, 08h:39m45s|M. Rajoy
-hash|S|2026-11-11, 08h:39m47s|Yeray Romero
-hash|E|2026-11-11, 08h:39m48s|Yeray Romero
-hash|S|2026-11-11, 08h:39m49s|Yeray Romero
-hash2|S|2026-11-11, 08h:39m51s|M. Rajoy
-hash|E|2026-11-11, 08h:39m55s|Yeray Romero
