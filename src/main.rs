@@ -8,7 +8,7 @@ use std::{
 
 const WORKERS_FILE: &str = "trabajadores.txt";
 const RECORDS_FILE: &str = "fichajes.txt";
-const date_format: &str = "%Y-%m-%d, %Hh:%Mm%Ss";
+const DATE_FORMAT: &str = "%Y-%m-%d, %Hh:%Mm%Ss";
 
 fn load_workers() -> io::Result<HashMap<String, String>> {
     let content = fs::read_to_string(WORKERS_FILE)?;
@@ -36,13 +36,12 @@ fn load_inside() -> io::Result<HashSet<String>> {
     for line in content.lines() {
         let fields: Vec<&str> = line.split("|").collect();
         
-        if fields.len() != 3 {
+        if fields.len() !=4 {
             continue;
         }
 
         let id = fields[0];
         let action = fields[1];
-        let timestamp = fields[2];
 
 
         match action {
@@ -59,8 +58,10 @@ fn load_inside() -> io::Result<HashSet<String>> {
 }
 
 fn reg(id: &mut String, action: &str){
-    let date = Local::now().format(date_format).to_string();
-    let content = format!("{}|{}|{}\n", id, action, date);
+    let date = Local::now().format(DATE_FORMAT).to_string();
+    let workers = load_workers();
+    let worker = workers.expect("Failed to retrieve workers").get(id).expect("No worker found").to_string();
+    let content = format!("{}|{}|{}|{}\n", id, action, date, worker);
     let mut file = OpenOptions::new()
         .append(true)
         .create(false)
@@ -94,7 +95,6 @@ fn register(scan: &mut String) -> bool {
 }
 
 fn main() {
-    let mut inside: io::Result<HashSet<String>>;
     let stdin = io::stdin();
     let mut barcode = String::new();
     loop {
