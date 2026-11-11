@@ -105,7 +105,7 @@ fn main() {
                 let mut scan = String::from(&barcode);
                 register(&mut scan);
                 barcode = String::new();
-                println!("Scanned: {}", barcode);
+                println!("Scanned correctly at {}", Local::now().format(DATE_FORMAT).to_string());
             },
             Err(e) => eprintln!("Input error: {}", e),
         }
